@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/code/luckydraw":{"type":null,"mount_options":["uid=1000","gid=1000"],"guestpath":"/home/vagrant/code/luckydraw","hostpath":"C:/Users/Asus/code/personal/lucky-draw","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/Users/Asus/code/personal/lucky-draw","disabled":false,"__vagrantfile":true}}}
