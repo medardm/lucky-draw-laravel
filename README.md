@@ -12,11 +12,34 @@ What things you need to install the software and how to install them
 - web server
 ```
 
-### Installing
+### Installation
 
-Create a virtual host and point to `/public` directory or run through vagrant box
+#### Dependencies
 ```
+composer install
+npm install
+```
+#### Configuration
+Rename `.env.example` file to `.env` and modify the following entries depending on your server configuration
+```
+APP_URL=http://luckdraw.test
+DB_HOST=<host>
+DB_PORT=<mysql_port>
+DB_DATABASE=luckydraw_db
+DB_USERNAME=<db_username>
+DB_PASSWORD=<password>
+```
+
+Create database (MySQL)
+```
+CREATE DATABASE luckydraw_db
+```
+
+Run `php artisan serve` or create a virtual host and point to `/public` directory or run through vagrant box:
+```
+# Add to your hosts file
 192.168.10.20  homestead.test
+
 # then run
 vagrant up
 ```
@@ -25,12 +48,11 @@ Run the migrations
 ```
 php artisan migrate:install
 
-php artisan migrate --seed
-```
+# without test data
+php artisan migrate
 
-Install npm dependencies
-```
-npm install
+# or with test data
+php artisan migrate --seed
 ```
 
 ## Running the tests
