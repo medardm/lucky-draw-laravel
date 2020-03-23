@@ -22,15 +22,19 @@ npm install
 #### Configuration
 Rename `.env.example` file to `.env` and modify the following entries depending on your server configuration
 ```
-APP_URL=http://luckdraw.test
+APP_URL=<app_url>
 DB_HOST=<host>
 DB_PORT=<mysql_port>
 DB_DATABASE=luckydraw_db
+
+# Use "homestead" if you are using vagrant box
 DB_USERNAME=<db_username>
+
+# Use "secret" if you are using vagrant box
 DB_PASSWORD=<password>
 ```
 
-Create database (MySQL)
+#### Database (MySQL)
 ```
 CREATE DATABASE luckydraw_db
 ```
@@ -46,7 +50,9 @@ vagrant up
 
 Run the migrations
 ```
-php artisan migrate:install
+# if you are using vagrant box
+vagrant ssh
+cd code/luckydraw
 
 # without test data
 php artisan migrate
