@@ -21,4 +21,14 @@ class PrizesUnitTest extends TestCase
         $this->assertInstanceOf(Prize::class, $prize->winners()->find($user->id)->prize->details);
         // $this->assertInstanceOf(Prize::class, $prize->users()->first()->prize);
     }
+
+    public function testCanWinOnePrizeOnly()
+    {
+        $prize1 = Prize::first();
+        $prize2 = Prize::find(2);
+        $user = factory(User::class)->create();
+
+        $this->assertTrue($prize1->give($user));
+        $this->assertFalse($prize2->give($user));
+    }
 }

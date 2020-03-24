@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->role->id == Role::ADMIN;
     }
 
+    public function getHasPrizeAttribute()
+    {
+        return $this->prize()->exists();
+    }
+
     public function prize()
     {
         return $this->hasOne(PrizeUser::class, 'user_id');

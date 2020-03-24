@@ -14,7 +14,11 @@ class Prize extends Model
 
     public function give(User $user)
     {
+        if ($user->hasPrize) {
+            return false;
+        }
         $this->winners()->attach($user->id);
+        return $user->hasPrize;
     }
 
     public function winners()
