@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\User\Role;
+use App\Models\DrawTicket;
 use App\Models\PrizeUser;
 
 class User extends Authenticatable
@@ -70,5 +71,10 @@ class User extends Authenticatable
     public function prize()
     {
         return $this->hasOne(PrizeUser::class, 'user_id');
+    }
+
+    public function ticket()
+    {
+        return $this->hasMany(DrawTicket::class);
     }
 }
