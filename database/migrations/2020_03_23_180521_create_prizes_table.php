@@ -21,6 +21,19 @@ class CreatePrizesTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('prize_user', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
+            $table->unsignedBigInteger('prize_id');
+            $table->foreign('prize_id')
+                ->references('id')
+                ->on('prizes');
+            $table->timestamps();
+        });
+
         // Default prizes
         $prizes = [
             [
