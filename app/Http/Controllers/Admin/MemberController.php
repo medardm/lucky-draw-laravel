@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\GenerateMemberRequest;
 use App\Models\User\Member;
+use App\Models\DrawTicket;
+use App\User;
 use Illuminate\Http\Request;
 
 class MemberController extends Controller
@@ -20,7 +23,7 @@ class MemberController extends Controller
     public function index(Member $members)
     {
         return view('pages.admin.member.index', [
-            'members' => $members->all()
+            'members' => $members->paginate(15)
         ]);
     }
 
@@ -43,6 +46,22 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    public function generate(GenerateMemberRequest $request)
+    {
+        $users = factory(User::class, (int) $request->number_of_users)->create();
+        if ($request->generate_ticket == true) {
+            $num = (int) $request->number_of_tickets;
+            $users->each(function ($user) use ($num) {
+                $user->tickets()->createMany(
+                    factory(DrawTicket::class, $num)
+                        ->make(['user_id' => $user->id])->toArray()
+                );
+            });
+        }
+
+        return back()->with('status', "{$users->count()} users were added");
     }
 
     /**

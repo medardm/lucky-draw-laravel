@@ -4,26 +4,26 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div class="card">
                 <div class="card-header">
                     Generate Dummy Member
                 </div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
                     <?php // TODO: Create draw route ?>
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ route('members.generate') }}">
                         @csrf
 
                         <div class="form-group row">
                             <label for="number_of_users" class="col-md-4 col-form-label text-md-right">{{ __('Number of Users') }}</label>
 
                             <div class="col-md-6">
-                                <input id="number_of_users" type="number" class="form-control @error('number_of_users') is-invalid @enderror" name="number_of_users" value="{{ old('number_of_users') }}" required autocomplete="number_of_users">
+                                <input id="number_of_users" type="number" class="form-control @error('number_of_users') is-invalid @enderror" name="number_of_users" value="{{ old('number_of_users') }}" required autocomplete="number_of_users" placeholder="max: 10">
 
                                 @error('number_of_users')
                                     <span class="invalid-feedback" role="alert">
@@ -34,12 +34,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="generate_ticket" class="col-md-4 col-form-label text-md-right">{{ __('Generate Random Tickets') }}</label>
+                            <label for="generate_ticket" class="col-md-4 col-form-label text-md-right">{{ __('Generate Tickets') }}</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="generate_ticket" required>
-                                    <option value="false">No</option>
-                                    <option value="true">Yes</option>
+                                    <option {{ old('generate_ticket') == 'false'? 'selected':'' }} value="false">No</option>
+                                    <option {{ old('generate_ticket') == 'true'? 'selected':'' }} value="true">Yes</option>
                                 </select>
                                 @error('generate_ticket')
                                     <span class="invalid-feedback" role="alert">
@@ -53,7 +53,7 @@
                             <label for="number_of_tickets" class="col-md-4 col-form-label text-md-right">{{ __('Number of tickets each') }}</label>
 
                             <div class="col-md-6">
-                                <input id="number_of_tickets" type="number" class="form-control @error('number_of_tickets') is-invalid @enderror" name="number_of_tickets" value="{{ old('number_of_tickets') }}" required autocomplete="number_of_tickets">
+                                <input id="number_of_tickets" type="number" class="form-control @error('number_of_tickets') is-invalid @enderror" name="number_of_tickets" value="{{ old('number_of_tickets') }}" autocomplete="number_of_tickets" placeholder="max: 10">
 
                                 @error('number_of_tickets')
                                     <span class="invalid-feedback" role="alert">
@@ -82,11 +82,6 @@
                 </div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
                     <?php // TODO: Create draw route ?>
                     <form method="POST" action="">
                         @csrf

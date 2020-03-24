@@ -25,15 +25,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($members as $member)
+                                @if ($members->count() > 0)
+                                    @foreach ($members as $member)
+                                        <tr>
+                                            <td>{{ $member->name}}</td>
+                                            <td>{{ $member->email}}</td>
+                                            <td>[{{ $member->tickets->count() }}] = {{ $member->tickets->implode('ticket_number', ',')}}</td>
+                                        </tr>
+                                    @endforeach
+
+                                @else
                                     <tr>
-                                        <td>{{ $member->name}}</td>
-                                        <td>{{ $member->email}}</td>
-                                        <td>{{ implode(',', $member->tickets->toArray())}}</td>
+                                        <td colspan=3>
+                                            <p class="alert alert-info">No members yet</p>
+                                        </td>
                                     </tr>
-                                @endforeach
+                                @endif
                             </tbody>
                         </table>
+                        {{ $members->links() }}
                     </div>
                 </div>
             </div>
