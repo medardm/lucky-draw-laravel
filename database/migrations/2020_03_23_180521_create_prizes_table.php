@@ -31,6 +31,11 @@ class CreatePrizesTable extends Migration
             $table->foreign('prize_id')
                 ->references('id')
                 ->on('prizes');
+            $table->unsignedBigInteger('draw_ticket_id');
+            $table->foreign('draw_ticket_id')
+                ->references('id')
+                ->on('draw_tickets')
+                ->onDelete('cascade');
             $table->timestamps();
         });
 
