@@ -61,5 +61,6 @@ class CreatePrizesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('prizes');
+        Schema::dropIfExists('prize_user');
     }
 }
