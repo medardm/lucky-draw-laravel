@@ -4,7 +4,9 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use App\Models\Prize;
+use App\Models\PrizeUser;
 use App\Models\DrawTicket;
 use App\User;
 
@@ -38,5 +40,24 @@ class PrizesUnitTest extends TestCase
 
         $this->assertTrue($prize1->give($user, $winningTicket->ticket_number));
         $this->assertFalse($prize2->give($user, $winningTicket2->ticket_number));
+    }
+
+    public function testGetAvailablePrizes()
+    {
+        $winningTicket = factory(DrawTicket::class)->make();
+        $winningTicket2 = factory(DrawTicket::class)->make();
+
+        $prize2 = Prize::find(2);
+        $user = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
+
+        $user->tickets()->save($winningTicket);
+        $user2->tickets()->save($winningTicket2);
+
+        $prize2->give($user, $winningTicket->ticket_number);
+        $prize2->give($user2, $winningTicket2->ticket_number);
+
+        $this->assertEquals($prize2->winners->count(), $prize2->num_of_winners);
+        $this->assertTrue(!Prize::available()->get()->contains($prize2));
     }
 }
