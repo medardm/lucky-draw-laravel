@@ -12,12 +12,14 @@ class Prize extends Model
         'prize', 'num_of_winners'
     ];
 
-    public function give(User $user)
+    public function give(User $user, $winningTicket)
     {
         if ($user->hasPrize) {
             return false;
         }
-        $this->winners()->attach($user->id);
+        $this->winners()->attach($user->id, [
+            'draw_ticket_id' => $user->tickets()->where('ticket_number', $winningTicket)->first()->id
+        ]);
         return $user->hasPrize;
     }
 
