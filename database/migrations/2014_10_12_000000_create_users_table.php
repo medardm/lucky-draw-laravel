@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use App\User;
+use App\Models\User\Role;
 
 class CreateUsersTable extends Migration
 {
@@ -34,6 +35,7 @@ class CreateUsersTable extends Migration
         factory(User::class)->create([
             'name' => 'Root User',
             'email' => 'root@gmail.com',
+            'role_id' => Role::ADMIN,
             'email_verified_at' => now(),
             'password' => Hash::make('t73h%48Svd@6'), // password
         ]);

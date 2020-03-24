@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\User\Role;
+use App\Models\PrizeUser;
 
 class User extends Authenticatable
 {
@@ -59,5 +60,15 @@ class User extends Authenticatable
     public function getIsAdminAttribute()
     {
         return $this->role->id == Role::ADMIN;
+    }
+
+    public function getHasPrizeAttribute()
+    {
+        return $this->prize()->exists();
+    }
+
+    public function prize()
+    {
+        return $this->hasOne(PrizeUser::class, 'user_id');
     }
 }
