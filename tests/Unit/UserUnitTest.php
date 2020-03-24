@@ -25,9 +25,9 @@ class UserUnitTest extends TestCase
     public function testHasTickets()
     {
         $user = factory(User::class)->create();
-        $user->ticket()->createMany(
+        $user->tickets()->createMany(
             factory(DrawTicket::class, 3)->make(['user_id' => $user->id])->toArray()
         );
-        $this->assertInstanceOf(DrawTicket::class, $user->ticket->first());
+        $this->assertInstanceOf(DrawTicket::class, $user->tickets->first());
     }
 }

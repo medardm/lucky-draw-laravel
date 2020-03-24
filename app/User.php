@@ -73,7 +73,7 @@ class User extends Authenticatable
         return $this->hasOne(PrizeUser::class, 'user_id');
     }
 
-    public function ticket()
+    public function tickets()
     {
         return $this->hasMany(DrawTicket::class);
     }
