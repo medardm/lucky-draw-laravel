@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\User\Member;
 use Illuminate\Http\Request;
-use App\Models\Prize;
 
-class AdminController extends Controller
+class MemberController extends Controller
 {
     public function __construct()
     {
@@ -16,11 +17,11 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Member $members)
     {
-        \Gate::authorize('view-admin-pages', auth()->user());
-        $aPrizes = Prize::available()->get();
-        return view('pages.admin.index', compact(['aPrizes']));
+        return view('pages.admin.member.index', [
+            'members' => $members->all()
+        ]);
     }
 
     /**
@@ -30,7 +31,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.member.create');
     }
 
     /**

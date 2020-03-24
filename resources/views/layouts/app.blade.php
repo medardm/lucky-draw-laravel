@@ -32,10 +32,29 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+
                     <ul class="navbar-nav mr-auto">
+                        @can ('view-admin-pages')
                         <li class="nav-item">
-                            <a href="{{ route('admin.index') }}">Admin</a>
+                            <a class="nav-link" href="{{ route('admin.index') }}">
+                                <span class="fa fa-user-lock"></span> Admin
+                            </a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a id="members" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <span class="fa fa-users"></span> Members
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="members">
+                                <a class="dropdown-item" href="{{ route('members.index') }}">
+                                    <span class="fa fa-list"></span> {{ __('List') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('members.create') }}">
+                                    <span class="fa fa-plus"></span> {{ __('Create') }}
+                                </a>
+                            </div>
+                        </li>
+                        @endcan
                     </ul>
 
                     <!-- Right Side Of Navbar -->
