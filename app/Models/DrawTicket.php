@@ -42,7 +42,7 @@ class DrawTicket extends Model
     public static function ticketExists($ticketNumber)
     {
         if (self::count() == (self::END - self::START)) {
-            throw new Exception('Tickets maxed out');
+            throw new \Exception('Tickets maxed out');
         }
         return self::where('ticket_number', $ticketNumber)->exists();
     }

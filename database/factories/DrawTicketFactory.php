@@ -9,6 +9,6 @@ use App\User;
 $factory->define(DrawTicket::class, function (Faker $faker) {
     return [
         'ticket_number' => random_int(10000, 90000),
-        'user_id' => factory(User::class)->create()->id
+        'user_id' => factory(User::class)
     ];
 });

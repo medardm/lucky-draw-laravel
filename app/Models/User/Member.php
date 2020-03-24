@@ -5,6 +5,7 @@ namespace App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\User\Role;
+use App\Models\DrawTicket;
 
 class Member extends Model
 {
@@ -17,5 +18,10 @@ class Member extends Model
         static::addGlobalScope('members', function (Builder $builder) {
             $builder->where('role_id', Role::MEMBER);
         });
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(DrawTicket::class, 'user_id');
     }
 }
