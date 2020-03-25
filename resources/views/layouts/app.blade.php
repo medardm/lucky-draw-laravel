@@ -36,8 +36,8 @@
                     <ul class="navbar-nav mr-auto">
                         @can ('view-admin-pages')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.index') }}">
-                                <span class="fa fa-user-lock"></span> Admin
+                            <a class="nav-link" href="{{ route('draw.index') }}">
+                                <span class="fa fa-trophy"></span> Draw Tickets
                             </a>
                         </li>
                         <li class="nav-item dropdown">
