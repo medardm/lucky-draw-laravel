@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\AddMemberRequest;
 use App\Http\Requests\Admin\GenerateMemberRequest;
 use App\Models\User\Member;
 use App\Models\DrawTicket;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class MemberController extends Controller
 {
@@ -43,9 +45,14 @@ class MemberController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddMemberRequest $request)
     {
-        //
+        $user = User::create($request->all());
+        $user->tickets()->create([
+            'ticket_number' => $request->ticket_number
+        ]);
+
+        return back()->with('status', "{$user->name} with ticket #{$user->tickets->first()->ticket_number} was added");
     }
 
     public function generate(GenerateMemberRequest $request)
@@ -61,7 +68,7 @@ class MemberController extends Controller
             });
         }
 
-        return back()->with('status', "{$users->count()} users were added");
+        return back()->with('status', "{$users->count()} members were added");
     }
 
     /**
