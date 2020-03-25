@@ -30,7 +30,7 @@ class Prize extends Model
         $this->winners()->attach($user->id, [
             'draw_ticket_id' => $user->tickets()->where('ticket_number', $winningTicket)->first()->id
         ]);
-        return $user->hasPrize;
+        return $user->hasPrize? $user: false;
     }
 
     public function winners()

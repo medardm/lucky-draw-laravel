@@ -57,7 +57,7 @@ cd code/luckydraw
 # without test data
 php artisan migrate
 
-# or with test data
+# or with test data (members only)
 php artisan migrate --seed
 ```
 
@@ -72,6 +72,6 @@ phpunit
 
 * [Laravel 7](http://laravel.com/docs/7.x) - The web framework used
 
-## Authors
+## Author
 
 * **Medard Mandane**
