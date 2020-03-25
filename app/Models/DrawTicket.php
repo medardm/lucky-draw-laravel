@@ -39,10 +39,18 @@ class DrawTicket extends Model
 
     public static function ticketExists($ticketNumber)
     {
-        if (self::count() == (config('luckydraw.end') - config('luckydraw.start'))) {
+        if (!self::areTicketsAvailable()) {
             throw new \Exception('Tickets maxed out, please modify ticket range');
         }
         return self::where('ticket_number', $ticketNumber)->exists();
+    }
+
+    public static function areTicketsAvailable()
+    {
+        if (self::count() == (config('luckydraw.end') - config('luckydraw.start'))) {
+            return false;
+        }
+        return true;
     }
 
     public function user()
