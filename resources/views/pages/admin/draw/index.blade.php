@@ -104,7 +104,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <span class="fa fa-award"></span> Winners
+                    <span class="fa fa-award"></span> Winners <a class="float-right" href="{{ route('draw.winners.reset') }}"><i class="fa fa-redo-alt"></i> Reset winners</a>
                 </div>
 
                 <div class="card-body">
@@ -131,7 +131,7 @@
 
                                 @else
                                     <tr>
-                                        <td colspan=3>
+                                        <td colspan=4>
                                             <p class="alert alert-info">No winners yet</p>
                                         </td>
                                     </tr>

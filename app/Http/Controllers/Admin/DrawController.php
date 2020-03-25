@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\DrawWinnerRequest;
 use App\Models\Prize;
 use App\Models\User\Winner;
 use App\Models\User\Member;
+use App\Models\PrizeUser;
 use Illuminate\Http\Request;
 
 class DrawController extends Controller
@@ -106,5 +107,12 @@ class DrawController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function resetWinners()
+    {
+        PrizeUser::truncate();
+
+        return back()->with('status', 'Winners were cleared');
     }
 }
