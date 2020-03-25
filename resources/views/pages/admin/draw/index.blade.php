@@ -113,29 +113,48 @@
                             <thead>
                                 <tr>
                                     <th>Prize</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Winning Ticket</th>
+                                    <th>Total</th>
+                                    <th>Remaining</th>
+                                    <th>Winners</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($winners->count() > 0)
-                                    @foreach ($winners as $winner)
-                                        <tr>
-                                            <td>{{ $winner->prize->details->prize }}</td>
-                                            <td>{{ $winner->name}}</td>
-                                            <td>{{ $winner->email}}</td>
-                                            <td>{{ $winner->prize->ticket->ticket_number}}</td>
-                                        </tr>
-                                    @endforeach
-
-                                @else
+                                @foreach ($prizes as $prize)
                                     <tr>
-                                        <td colspan=4>
-                                            <p class="alert alert-info">No winners yet</p>
+                                        <td>{{ $prize->prize }}</td>
+                                        <td>{{ $prize->num_of_winners }}</td>
+                                        <td>{{ $prize->remainingWinners }}</td>
+                                        <td>
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Winning Ticket</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if ($prize->winners->count() > 0)
+                                                        @foreach ($prize->winners as $winner)
+                                                            <tr>
+                                                                <td>{{ $winner->name}}</td>
+                                                                <td>{{ $winner->email}}</td>
+                                                                <td>{{ $winner->prize->ticket->ticket_number}}</td>
+                                                            </tr>
+                                                        @endforeach
+
+                                                    @else
+                                                        <tr>
+                                                            <td colspan=4>
+                                                                <p class="alert alert-info">No winners yet</p>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
+                                                </tbody>
+                                            </table>
                                         </td>
                                     </tr>
-                                @endif
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

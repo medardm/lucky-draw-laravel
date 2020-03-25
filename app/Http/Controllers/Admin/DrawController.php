@@ -25,12 +25,9 @@ class DrawController extends Controller
     {
         \Gate::authorize('view-admin-pages', auth()->user());
         $members = Member::has('tickets')->get();
-        $winners = Winner::with('prize')->get()
-            ->sortBy(function ($winner) {
-                return $winner->prize->prize_id;
-            });
+        $prizes = Prize::all();
         $aPrizes = Prize::available()->get();
-        return view('pages.admin.draw.index', compact(['aPrizes', 'winners', 'members']));
+        return view('pages.admin.draw.index', compact(['prizes', 'aPrizes', 'members']));
     }
 
     /**

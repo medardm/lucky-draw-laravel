@@ -76,6 +76,18 @@ class Prize extends Model
 
             default:
                 // randomly pick from the tickets of the users
+                $winningTicket = DrawTicket::whereIn(
+                    'user_id',
+                    Member::has('tickets')
+                        ->doesntHave('prize')
+                        ->get()
+                        ->pluck('id')
+                        ->toArray()
+                )->get()->random();
+
+                $winner = $this->give($winningTicket->user, $winningTicket->ticket_number);
+
+                return $winningTicket->user;
                 break;
         }
     }
