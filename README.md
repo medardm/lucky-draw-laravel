@@ -1,4 +1,5 @@
-# Lucky Draw System
+# Lucky Draw System brought to you by Plus64
+![Laravel](https://github.com/medardm/lucky-draw-laravel/workflows/Laravel/badge.svg?branch=master)
 
 A simple lucky draw system
 
