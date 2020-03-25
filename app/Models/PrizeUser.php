@@ -19,4 +19,9 @@ class PrizeUser extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function ticket()
+    {
+        return $this->hasOne(DrawTicket::class, 'id', 'draw_ticket_id');
+    }
 }

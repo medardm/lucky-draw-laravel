@@ -25,8 +25,8 @@ class GenerateMemberRequest extends FormRequest
     public function rules()
     {
         return [
-            'number_of_users' => 'required|integer|max:5',
-            'generate_ticket' => 'required|string|max:5',
+            'number_of_users' => 'required|integer|max:10',
+            'generate_ticket' => 'required|string|max:10',
             'number_of_tickets' => [
                 'exclude_if:generate_ticket,false',
                 'required',

@@ -3,12 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\DrawWinnerRequest;
 use App\Models\Prize;
 use App\Models\User\Winner;
+use App\Models\User\Member;
 use Illuminate\Http\Request;
 
 class DrawController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,12 +23,13 @@ class DrawController extends Controller
     public function index()
     {
         \Gate::authorize('view-admin-pages', auth()->user());
+        $members = Member::has('tickets')->get();
         $winners = Winner::with('prize')->get()
             ->sortBy(function ($winner) {
                 return $winner->prize->prize_id;
             });
         $aPrizes = Prize::available()->get();
-        return view('pages.admin.draw.index', compact(['aPrizes', 'winners']));
+        return view('pages.admin.draw.index', compact(['aPrizes', 'winners', 'members']));
     }
 
     /**
@@ -41,9 +48,19 @@ class DrawController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DrawWinnerRequest $request)
     {
-        //
+        $prize = Prize::find($request->prize_id);
+        if ($request->generate_randomly == 'true') {
+            $winner = $prize->findRandomWinner();
+
+            return back()->with(
+                'status',
+                "{$prize->prize} winner: {$winner->name}, Ticket #: {$winner->prize->ticket->ticket_number}"
+            );
+        } else {
+            dd($request->all());
+        }
     }
 
     /**
