@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -8,7 +8,7 @@ use App\User;
 use App\Models\User\Role;
 use App\Models\DrawTicket;
 
-class UserUnitTest extends TestCase
+class UserTest extends TestCase
 {
     use RefreshDatabase;
     /**

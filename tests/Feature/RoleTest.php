@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\User;
 use App\Models\User\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class RoleUnitTest extends TestCase
+class RoleTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -19,7 +19,7 @@ class RoleUnitTest extends TestCase
         ]);
         $this->assertInstanceOf(User::class, $role->users->find($user->id));
     }
-    
+
     public function testIsAdmin()
     {
         $user = factory(User::class)->create([

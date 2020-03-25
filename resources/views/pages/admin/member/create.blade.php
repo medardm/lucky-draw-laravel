@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 mb-2">
             @if (session('status'))
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}
@@ -23,7 +23,7 @@
                             <label for="number_of_users" class="col-md-4 col-form-label text-md-right">{{ __('Number of Users') }} <span class="text-danger">*</span></label>
 
                             <div class="col-md-6">
-                                <input id="number_of_users" type="number" class="form-control @error('number_of_users') is-invalid @enderror" name="number_of_users" value="{{ old('number_of_users') }}" required autocomplete="number_of_users" placeholder="max: 5">
+                                <input id="number_of_users" type="number" class="form-control @error('number_of_users') is-invalid @enderror" name="number_of_users" value="{{ old('number_of_users') }}" required autocomplete="number_of_users" placeholder="max: 10">
 
                                 @error('number_of_users')
                                     <span class="invalid-feedback" role="alert">
@@ -50,10 +50,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="number_of_tickets" class="col-md-4 col-form-label text-md-right">{{ __('Number of tickets each') }} <span class="text-danger">*</span></label>
+                            <label for="number_of_tickets" class="col-md-4 col-form-label text-md-right">{{ __('Number of tickets each') }}</label>
 
                             <div class="col-md-6">
-                                <input id="number_of_tickets" type="number" class="form-control @error('number_of_tickets') is-invalid @enderror" name="number_of_tickets" value="{{ old('number_of_tickets') }}" autocomplete="number_of_tickets" placeholder="max: 5">
+                                <input id="number_of_tickets" type="number" class="form-control @error('number_of_tickets') is-invalid @enderror" name="number_of_tickets" value="{{ old('number_of_tickets') }}" autocomplete="number_of_tickets" placeholder="max: 10">
 
                                 @error('number_of_tickets')
                                     <span class="invalid-feedback" role="alert">

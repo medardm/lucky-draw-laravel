@@ -22,5 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('admin', 'AdminController');
+Route::resource('draw', 'Admin\DrawController');
+Route::get('draw/winners/reset', 'Admin\DrawController@resetWinners')->name('draw.winners.reset');
 Route::resource('members', 'Admin\MemberController');
 Route::post('/members/generate', 'Admin\MemberController@generate')->name('members.generate');

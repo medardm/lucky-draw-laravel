@@ -47,6 +47,9 @@ class MemberController extends Controller
      */
     public function store(AddMemberRequest $request)
     {
+        if (!DrawTicket::areTicketsAvailable()) {
+            return back()->with('error', "No more tickets is available");
+        }
         $user = User::create($request->all());
         $user->tickets()->create([
             'ticket_number' => $request->ticket_number
@@ -57,6 +60,9 @@ class MemberController extends Controller
 
     public function generate(GenerateMemberRequest $request)
     {
+        if (!DrawTicket::areTicketsAvailable()) {
+            return back()->with('error', "No more tickets is available");
+        }
         $users = factory(User::class, (int) $request->number_of_users)->create();
         if ($request->generate_ticket == true) {
             $num = (int) $request->number_of_tickets;

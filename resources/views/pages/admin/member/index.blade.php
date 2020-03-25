@@ -19,6 +19,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Tickets</th>
@@ -28,6 +29,7 @@
                                 @if ($members->count() > 0)
                                     @foreach ($members as $member)
                                         <tr>
+                                            <td>{{ $member->id}}</td>
                                             <td>{{ $member->name}}</td>
                                             <td>{{ $member->email}}</td>
                                             <td>[{{ $member->tickets->count() }}] = {{ $member->tickets->implode('ticket_number', ', ')}}</td>

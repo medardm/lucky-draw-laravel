@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -10,7 +10,7 @@ use App\Models\PrizeUser;
 use App\Models\DrawTicket;
 use App\User;
 
-class PrizesUnitTest extends TestCase
+class PrizesTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -38,7 +38,7 @@ class PrizesUnitTest extends TestCase
         $user->tickets()->save($winningTicket);
         $user->tickets()->save($winningTicket2);
 
-        $this->assertTrue($prize1->give($user, $winningTicket->ticket_number));
+        $this->assertInstanceOf(User::class, $prize1->give($user, $winningTicket->ticket_number));
         $this->assertFalse($prize2->give($user, $winningTicket2->ticket_number));
     }
 
