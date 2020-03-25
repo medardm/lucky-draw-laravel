@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use App\Models\User\Role;
 use App\Models\DrawTicket;
 use App\Models\PrizeUser;
@@ -76,5 +77,11 @@ class User extends Authenticatable
     public function tickets()
     {
         return $this->hasMany(DrawTicket::class, 'user_id');
+    }
+
+    public static function scopeMostTicketCount($q)
+    {
+        $maxTicketCount = (int) DrawTicket::getMostNumberOfTickets();
+        return $maxTicketCount > 0? $q->with('tickets')->has('tickets', $maxTicketCount): $q->has('tickets');
     }
 }

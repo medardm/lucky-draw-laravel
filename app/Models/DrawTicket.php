@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use App\User;
 
 class DrawTicket extends Model
@@ -47,5 +48,14 @@ class DrawTicket extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public static function getMostNumberOfTickets()
+    {
+        $ticket = DrawTicket::addSelect(DB::raw('COUNT(*) as ticketCount'))
+            ->groupBy(['user_id'])
+            ->latest('ticketCount');
+
+        return $ticket->exists()? $ticket->first()->ticketCount : 0;
     }
 }
