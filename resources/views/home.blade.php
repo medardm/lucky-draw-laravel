@@ -13,35 +13,36 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-4 px-0">
-                                <div class="card">
-                                  <div class="card-body text-center">
-                                    <h1 class="card-title">{{ $members->count() }}</h1>
-                                    <h6 class="card-subtitle mb-2 text-muted"><span class="fa fa-users"></span> Members</h6>
-                                  </div>
+                    @can ('view-admin-pages')
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-4 px-0">
+                                    <div class="card">
+                                      <div class="card-body text-center">
+                                        <h1 class="card-title">{{ $members->count() }}</h1>
+                                        <h6 class="card-subtitle mb-2 text-muted"><span class="fa fa-users"></span> Members</h6>
+                                      </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4 px-0">
-                                <div class="card">
-                                  <div class="card-body text-center">
-                                    <h1 class="card-title">{{ $tickets->count() }}</h1>
-                                    <h6 class="card-subtitle mb-2 text-muted"><span class="fa fa-ticket-alt"></span> Tickets</h6>
-                                  </div>
+                                <div class="col-md-4 px-0">
+                                    <div class="card">
+                                      <div class="card-body text-center">
+                                        <h1 class="card-title">{{ $tickets->count() }}</h1>
+                                        <h6 class="card-subtitle mb-2 text-muted"><span class="fa fa-ticket-alt"></span> Tickets</h6>
+                                      </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4 px-0">
-                                <div class="card">
-                                  <div class="card-body text-center">
-                                    <h1 class="card-title">{{ $winners->count() }}</h1>
-                                    <h6 class="card-subtitle mb-2 text-muted">Winners</h6>
-                                  </div>
+                                <div class="col-md-4 px-0">
+                                    <div class="card">
+                                      <div class="card-body text-center">
+                                        <h1 class="card-title">{{ $winners->count() }}</h1>
+                                        <h6 class="card-subtitle mb-2 text-muted"> <span class="fa fa-trophy"></span> Winners</h6>
+                                      </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endcan
                 </div>
             </div>
         </div>
