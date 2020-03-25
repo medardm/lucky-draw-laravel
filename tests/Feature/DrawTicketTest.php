@@ -1,17 +1,17 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
 use App\Models\DrawTicket;
 
-class DrawTicketUnitTest extends TestCase
+class DrawTicketTest extends TestCase
 {
     use RefreshDatabase;
     /**
-     * A basic unit test example.
+     * A basic Feature test example.
      *
      * @return void
      */

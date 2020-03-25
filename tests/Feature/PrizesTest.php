@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -10,7 +10,7 @@ use App\Models\PrizeUser;
 use App\Models\DrawTicket;
 use App\User;
 
-class PrizesUnitTest extends TestCase
+class PrizesTest extends TestCase
 {
     use RefreshDatabase;
 
