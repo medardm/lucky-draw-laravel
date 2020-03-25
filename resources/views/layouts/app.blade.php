@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <span class="fa fa-trophy"></span> {{ config('app.name', 'Laravel') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -34,10 +34,15 @@
                     <!-- Left Side Of Navbar -->
 
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home') }}">
+                                <span class="fa fa-home"></span> Home
+                            </a>
+                        </li>
                         @can ('view-admin-pages')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('draw.index') }}">
-                                <span class="fa fa-trophy"></span> Draw Tickets
+                                <span class="fa fa-ticket-alt"></span> Draw Tickets
                             </a>
                         </li>
                         <li class="nav-item dropdown">
@@ -96,6 +101,44 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <!-- Footer -->
+        <footer class="page-footer font-small special-color-dark pt-4">
+
+          <!-- Footer Elements -->
+          <div class="container">
+
+            <!-- Social buttons -->
+            <ul class="list-unstyled list-inline text-center">
+              <li class="list-inline-item">
+                <a class="btn-floating mx-1" target="_blank" href="http://plus65.com.sg">
+                  <img src="{{ asset('logo.png') }}" class="img-responsive" alt="" style="width:30px">
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn-floating mx-1" target="_blank" href="https://www.instagram.com/plus65interactive/">
+                  <i class="fab fa-instagram text-dark"> </i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a class="btn-floating mx-1" target="_blank" href="https://www.facebook.com/plus65interactive/">
+                  <i class="fab fa-facebook text-dark"> </i>
+                </a>
+              </li>
+            </ul>
+            <!-- Social buttons -->
+
+          </div>
+          <!-- Footer Elements -->
+
+          <!-- Copyright -->
+          <div class="footer-copyright text-center py-3">© 2020 Copyright:
+            <a href="http://plus65.com.sg"> Plus65</a>
+          </div>
+          <!-- Copyright -->
+
+        </footer>
+        <!-- Footer -->
     </div>
 </body>
 </html>

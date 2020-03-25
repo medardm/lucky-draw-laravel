@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User\Member;
+use App\Models\User\Winner;
+use App\Models\DrawTicket;
 
 class HomeController extends Controller
 {
@@ -23,6 +26,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $members = Member::all();
+        $winners = Winner::all();
+        $tickets = DrawTicket::all();
+        return view('home', compact([
+            'members',
+            'winners',
+            'tickets'
+        ]));
     }
 }
