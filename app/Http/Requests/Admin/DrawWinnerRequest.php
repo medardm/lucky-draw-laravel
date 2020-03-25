@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\DrawTicket;
 
 class DrawWinnerRequest extends FormRequest
 {
@@ -26,7 +27,17 @@ class DrawWinnerRequest extends FormRequest
         return [
             'prize_id' => 'required|integer|exists:prizes,id',
             'generate_randomly' => 'required|string',
-            'ticket_number' => 'exclude_if:generate_randomly,true|required|string|exists:draw_tickets,ticket_number',
+            'ticket_number' => [
+                'exclude_if:generate_randomly,true',
+                'required',
+                'string',
+                'exists:draw_tickets,ticket_number',
+                function ($attribute, $value, $fail) {
+                    if (DrawTicket::hasPrize($value)) {
+                        $fail("Ticket # $value belongs to a winner, please choose a different ticket number");
+                    };
+                },
+            ],
         ];
     }
 

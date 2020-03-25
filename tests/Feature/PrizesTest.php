@@ -38,7 +38,7 @@ class PrizesTest extends TestCase
         $user->tickets()->save($winningTicket);
         $user->tickets()->save($winningTicket2);
 
-        $this->assertTrue($prize1->give($user, $winningTicket->ticket_number));
+        $this->assertInstanceOf(User::class, $prize1->give($user, $winningTicket->ticket_number));
         $this->assertFalse($prize2->give($user, $winningTicket2->ticket_number));
     }
 

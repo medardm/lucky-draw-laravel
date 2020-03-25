@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\DrawWinnerRequest;
 use App\Models\Prize;
 use App\Models\User\Winner;
 use App\Models\User\Member;
+use App\Models\DrawTicket;
 use App\Models\PrizeUser;
 use Illuminate\Http\Request;
 
@@ -51,14 +52,14 @@ class DrawController extends Controller
         $prize = Prize::find($request->prize_id);
         if ($request->generate_randomly == 'true') {
             $winner = $prize->findRandomWinner();
-
-            return back()->with(
-                'status',
-                "{$prize->prize} winner: {$winner->name}, Ticket #: {$winner->prize->ticket->ticket_number}"
-            );
         } else {
-            dd($request->all());
+            $ticket = DrawTicket::where('ticket_number', $request->ticket_number)->first();
+            $winner = $prize->give($ticket->user, $ticket->ticket_number);
         }
+        return back()->with(
+            'status',
+            "{$prize->prize} winner: {$winner->name}, Ticket #: {$winner->prize->ticket->ticket_number}"
+        );
     }
 
     /**
