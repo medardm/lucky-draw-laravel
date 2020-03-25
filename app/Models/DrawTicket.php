@@ -7,9 +7,6 @@ use App\User;
 
 class DrawTicket extends Model
 {
-    const START = 0000;
-    const END = 9999;
-
     protected $fillable = [
         'ticket_number',
         'user_id'
@@ -33,7 +30,7 @@ class DrawTicket extends Model
     public static function generateTicket()
     {
         do {
-            $ticketNumber = random_int(self::START, self::END);
+            $ticketNumber = random_int(config('luckydraw.start'), config('luckydraw.end'));
         } while (self::ticketExists($ticketNumber));
 
         return $ticketNumber;
@@ -41,8 +38,8 @@ class DrawTicket extends Model
 
     public static function ticketExists($ticketNumber)
     {
-        if (self::count() == (self::END - self::START)) {
-            throw new \Exception('Tickets maxed out');
+        if (self::count() == (config('luckydraw.end') - config('luckydraw.start'))) {
+            throw new \Exception('Tickets maxed out, please modify ticket range');
         }
         return self::where('ticket_number', $ticketNumber)->exists();
     }

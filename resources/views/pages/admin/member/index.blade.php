@@ -30,7 +30,7 @@
                                         <tr>
                                             <td>{{ $member->name}}</td>
                                             <td>{{ $member->email}}</td>
-                                            <td>[{{ $member->tickets->count() }}] = {{ $member->tickets->implode('ticket_number', ',')}}</td>
+                                            <td>[{{ $member->tickets->count() }}] = {{ $member->tickets->implode('ticket_number', ', ')}}</td>
                                         </tr>
                                     @endforeach
 
