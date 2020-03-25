@@ -8,7 +8,7 @@ use App\User;
 
 $factory->define(DrawTicket::class, function (Faker $faker) {
     return [
-        'ticket_number' => random_int(10000, 90000),
-        'user_id' => factory(User::class)->create()->id
+        'ticket_number' => random_int(config('luckydraw.start'), config('luckydraw.end')),
+        'user_id' => factory(User::class)
     ];
 });
