@@ -2,11 +2,11 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row justify-content-center mb-2">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Lucky Draw
+                    <span class="fa fa-trophy"></span> Lucky Draw
                 </div>
 
                 <div class="card-body">
@@ -20,16 +20,16 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="prize_id" class="col-md-4 col-form-label text-md-right">{{ __('Prize Types') }}</label>
+                            <label for="prize_id" class="col-md-4 col-form-label text-md-right">{{ __('Prize Types') }} <span class="text-danger">*</span></label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="prize_id">
                                     <option value="">Please select</option>
                                     @foreach ($aPrizes as $aPrize)
                                         @if ($aPrize->id == old('prize_id'))
-                                            <option selected value="{{ $aPrize->id }}">{{ $aPrize->prize }} | {{ $aPrize->remainingWinners}} prize(s) remaining</option>
+                                            <option selected value="{{ $aPrize->id }}">{{ $aPrize->prize }} | {{ $aPrize->remainingWinners}} place(s) remaining</option>
                                         @else
-                                            <option value="{{ $aPrize->id }}">{{ $aPrize->prize }} | {{ $aPrize->remainingWinners}} prize(s) remaining</option>
+                                            <option value="{{ $aPrize->id }}">{{ $aPrize->prize }} | {{ $aPrize->remainingWinners}} place(s) remaining</option>
                                         @endif
                                     @endforeach
                                 </select>
@@ -42,15 +42,29 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="generate_ticket" class="col-md-4 col-form-label text-md-right">{{ __('Generate Randomly') }}</label>
+                            <label for="generate_randomly" class="col-md-4 col-form-label text-md-right">{{ __('Generate Randomly') }} <span class="text-danger">*</span></label>
 
                             <div class="col-md-6">
-                                <select class="form-control" name="generate_ticket">
+                                <select class="form-control" name="generate_randomly">
                                     <option value="">Please select</option>
                                     <option value="true">Yes</option>
                                     <option value="false">No</option>
                                 </select>
-                                @error('generate_ticket')
+                                @error('generate_randomly')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="ticket_number" class="col-md-4 col-form-label text-md-right">{{ __('Winning number') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="ticket_number" type="number" class="form-control @error('ticket_number') is-invalid @enderror" name="ticket_number" value="{{ old('ticket_number') }}" autocomplete="ticket_number" placeholder="">
+
+                                @error('ticket_number')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -66,6 +80,61 @@
                             </div>
                         </div>
                     </form>
+
+                    <section>
+                        <header>Rules</header>
+                        <ul>
+                            <li>Each user can only win one prize</li>
+                            <li>If the grand prize is to be drawn randomly, the number will be drawn from the users with most number of draw tickets</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <span class="fa fa-award"></span> Winners
+                </div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Prize</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    {{-- <th>Tickets</th> --}}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($winners->count() > 0)
+                                    @foreach ($winners as $winner)
+                                        <tr>
+                                            <td>{{ $winner->prize->details->prize }}</td>
+                                            <td>{{ $winner->name}}</td>
+                                            <td>{{ $winner->email}}</td>
+                                        </tr>
+                                    @endforeach
+
+                                @else
+                                    <tr>
+                                        <td colspan=3>
+                                            <p class="alert alert-info">No winners yet</p>
+                                        </td>
+                                    </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

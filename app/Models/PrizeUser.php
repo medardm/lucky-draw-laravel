@@ -11,6 +11,6 @@ class PrizeUser extends Model
 
     public function details()
     {
-        return $this->hasOne(Prize::class, 'id');
+        return $this->hasOne(Prize::class, 'id', 'prize_id');
     }
 }

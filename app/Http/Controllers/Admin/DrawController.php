@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Prize;
+use App\Models\User\Winner;
 use Illuminate\Http\Request;
 
 class DrawController extends Controller
@@ -16,8 +17,12 @@ class DrawController extends Controller
     public function index()
     {
         \Gate::authorize('view-admin-pages', auth()->user());
+        $winners = Winner::with('prize')->get()
+            ->sortBy(function ($winner) {
+                return $winner->prize->prize_id;
+            });
         $aPrizes = Prize::available()->get();
-        return view('pages.admin.draw.index', compact(['aPrizes']));
+        return view('pages.admin.draw.index', compact(['aPrizes', 'winners']));
     }
 
     /**
